@@ -1,0 +1,18 @@
+{
+    "extends": [
+      "stylelint-config-recommended", 
+      "stylelint-config-standard",
+      "stylelint-config-recess-order"
+    ],
+    "ignoreFiles": [
+      "./node_modules/**/*.css",
+      "./dist/**/*.css"
+    ],
+    "rules": {
+      "color-hex-length": "short",
+      "color-named": "never",
+      "selector-max-id": 0,
+      "selector-class-pattern": "^[a-z0-9\\-]+$"
+    }
+  }
+  

@@ -1,0 +1,39 @@
+.message-input {
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    padding: 12px;
+    background: #fff;
+    border: 1px solid #DAE2ED;
+    border-radius: 12px 12px 0;
+    box-shadow: 0 2px 2px #F3F6F9;
+
+    &:hover {
+        border-color: #39F;
+      }
+  
+    &.focused {
+        border-color: #39F;
+        outline: 0;
+        box-shadow: 0 0 0 3px #b6daff;
+    }
+
+    .message-input--textarea {
+        flex: 1 1 0;
+        padding: 5px 0;
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.25;
+        color: #1C2025;
+        resize: none;
+        border: none;
+        outline: 0;
+    }
+
+    .message-input--send-icon {
+        width: 20px;
+        height: 20px;
+    }
+}

@@ -1,0 +1,10 @@
+.user-message {
+    padding: 16px 12px;
+    line-height: 1.2;
+    color: #fff;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-line;
+    background-color: #1976d2;
+    border-radius: 12px 12px 0;
+}
