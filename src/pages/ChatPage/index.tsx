@@ -49,7 +49,7 @@ export const ChatPage: React.FC = () => {
 
     return (
         <section className="chat-page">
-            <TopPanel canGoBackTo="/" />
+            <TopPanel canGoBack />
 
             <LinearProgress
                 className={cn('chat-page--linear-progress', {
