@@ -11,6 +11,8 @@ interface UseChatWithBotParams {
 
 interface UseChatWithBotReturn {
     messages: Message[];
+
+    isMessagesListLoading: boolean;
     isBotResponding: boolean;
 
     sendMessage: (message: string) => Promise<void>;
@@ -20,9 +22,18 @@ export const useChatWithBot = ({
     userId,
     botId,
 }: UseChatWithBotParams): UseChatWithBotReturn => {
-    const { messages, addMessage } = useMessagesHistory({ userId, botId });
+    const {
+        messages,
+        isLoading: isMessagesListLoading,
+        addMessage,
+    } = useMessagesHistory({
+        userId,
+        botId,
+    });
 
-    const { isResponding, sendRequest } = useChatGptApi({ botId });
+    const { isResponding: isBotResponding, sendRequest } = useChatGptApi({
+        botId,
+    });
 
     const sendMessage = useCallback(
         async (message: string) => {
@@ -40,7 +51,8 @@ export const useChatWithBot = ({
 
     return {
         messages,
-        isBotResponding: isResponding,
+        isMessagesListLoading,
+        isBotResponding,
         sendMessage,
     };
 };

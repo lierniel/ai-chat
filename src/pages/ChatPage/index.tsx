@@ -26,11 +26,12 @@ export const ChatPage: React.FC = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const chatListRef = useRef<HTMLElement>(null);
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { messages, isBotResponding, sendMessage } = useChatWithBot({
-        userId: user.email,
-        botId,
-    });
+    const { messages, isMessagesListLoading, isBotResponding, sendMessage } =
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        useChatWithBot({
+            userId: user.email,
+            botId,
+        });
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const handleMessageSubmit = useCallback(
@@ -44,20 +45,22 @@ export const ChatPage: React.FC = () => {
 
     const { title, avatarSrc } = botsConfig[botId];
 
+    const isMessagesListEmpty = !isMessagesListLoading && !messages.length;
+
     return (
         <section className="chat-page">
             <TopPanel canGoBackTo="/" />
 
             <LinearProgress
                 className={cn('chat-page--linear-progress', {
-                    visible: isBotResponding,
+                    visible: isBotResponding || isMessagesListLoading,
                 })}
                 color="secondary"
             />
 
             <main className="chat-page-content">
                 <section className="chat-messages" ref={chatListRef}>
-                    {!messages.length && (
+                    {isMessagesListEmpty && (
                         <EmptyMessagesList
                             className="chat-empty-messages-stub"
                             botTitle={title}
