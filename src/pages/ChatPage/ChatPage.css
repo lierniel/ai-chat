@@ -1,28 +1,3 @@
-.chat-page {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.chat-page--linear-progress {
-    opacity: 0;
-    transition: opacity 200ms ease-out;
-
-    &.visible {
-        opacity: 1;
-    }
-}
-
-.chat-page-content {
-    box-sizing: border-box;
-    display: flex;
-    flex: 1 1 0;
-    flex-direction: column;
-    width: max(600px, 60%);
-    max-width: 100%;
-    margin: auto;
-}
-
 .chat-messages {
     display: flex;
     flex: 1 1 0;

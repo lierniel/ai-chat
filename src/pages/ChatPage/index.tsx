@@ -1,10 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
-import { LinearProgress } from '@mui/material';
-import cn from 'classnames';
 
-import { TopPanel } from '@components/TopPanel';
 import { MessageInput } from '@components/MessageInput';
 import { BotMessage } from '@components/BotMessage';
 import { UserMessage } from '@components/UserMessage';
@@ -14,6 +11,7 @@ import { useChatWithBot } from '@hooks/useChatWithBot';
 import { EmptyMessagesList } from '@components/EmptyMessagesList';
 
 import './ChatPage.css';
+import { BasePageLayout } from '@components/BasePageLayout';
 
 export const ChatPage: React.FC = () => {
     const { botId } = useParams();
@@ -48,61 +46,51 @@ export const ChatPage: React.FC = () => {
     const isMessagesListEmpty = !isMessagesListLoading && !messages.length;
 
     return (
-        <section className="chat-page">
-            <TopPanel canGoBack />
-
-            <LinearProgress
-                className={cn('chat-page--linear-progress', {
-                    visible: isBotResponding || isMessagesListLoading,
-                })}
-                color="secondary"
-            />
-
-            <main className="chat-page-content">
-                <section className="chat-messages" ref={chatListRef}>
-                    {isMessagesListEmpty && (
-                        <EmptyMessagesList
-                            className="chat-empty-messages-stub"
-                            botTitle={title}
-                            botAvatarSrc={avatarSrc}
-                        />
-                    )}
-                    {messages
-                        .toReversed()
-                        .map(({ messageId, role, content }) => {
-                            if (role === 'assistant') {
-                                return (
-                                    <BotMessage
-                                        className="chat-page--bot-message"
-                                        key={messageId}
-                                        title={title}
-                                        avatarSrc={avatarSrc}
-                                        message={content}
-                                    />
-                                );
-                            }
-
-                            if (role === 'user') {
-                                return (
-                                    <UserMessage
-                                        className="chat-page--user-message"
-                                        key={messageId}
-                                        message={content}
-                                    />
-                                );
-                            }
-
-                            return null;
-                        })}
-                </section>
-                <div className="chat-page--bottom-section">
-                    <MessageInput
-                        autofocus
-                        isDisabled={isBotResponding}
-                        onSubmit={handleMessageSubmit}
+        <BasePageLayout
+            canGoBack
+            isLoaderVisible={isMessagesListLoading || isBotResponding}
+        >
+            <section className="chat-messages" ref={chatListRef}>
+                {isMessagesListEmpty && (
+                    <EmptyMessagesList
+                        className="chat-empty-messages-stub"
+                        botTitle={title}
+                        botAvatarSrc={avatarSrc}
                     />
-                </div>
-            </main>
-        </section>
+                )}
+                {messages.toReversed().map(({ messageId, role, content }) => {
+                    if (role === 'assistant') {
+                        return (
+                            <BotMessage
+                                className="chat-page--bot-message"
+                                key={messageId}
+                                title={title}
+                                avatarSrc={avatarSrc}
+                                message={content}
+                            />
+                        );
+                    }
+
+                    if (role === 'user') {
+                        return (
+                            <UserMessage
+                                className="chat-page--user-message"
+                                key={messageId}
+                                message={content}
+                            />
+                        );
+                    }
+
+                    return null;
+                })}
+            </section>
+            <div className="chat-page--bottom-section">
+                <MessageInput
+                    autofocus
+                    isDisabled={isBotResponding}
+                    onSubmit={handleMessageSubmit}
+                />
+            </div>
+        </BasePageLayout>
     );
 };

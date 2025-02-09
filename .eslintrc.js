@@ -41,6 +41,7 @@ module.exports = {
         'import/prefer-default-export': 'off',
         'import/no-default-export': 'warn',
         'react/require-default-props': [0],
+        'react/prop-types': [0],
         'sort-imports': [
             'error',
             {

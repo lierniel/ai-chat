@@ -6,11 +6,11 @@ import { Profile } from '@components/Profile';
 
 import './TopPanel.css';
 
-interface Props {
+export interface TopPanelProps {
     canGoBack?: string | boolean;
 }
 
-export const TopPanel: React.FC<Props> = ({ canGoBack }) => {
+export const TopPanel: React.FC<TopPanelProps> = ({ canGoBack }) => {
     const navigate = useNavigate();
 
     const handleGoBackClick = useCallback(() => {
